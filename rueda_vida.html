@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rueda de la Vida · Smart Insurance Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--nv:#1a3660;--nvdk:#0f2140;--bl:#1e6ec8;--bllt:#3b82f6;--or:#f5821f;--orlt:#ffa048;
+--bg:#f1f5f9;--sf:#fff;--sf2:#f8fafc;--bd:#e2e8f0;--tx:#1e293b;--txs:#475569;--mu:#94a3b8;
+--ok:#10b981;--er:#ef4444;--r:12px;--rl:20px;
+--gd:linear-gradient(135deg,#0f2140 0%,#1a3660 45%,#1e6ec8 100%)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.hdr{background:var(--gd);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:99;box-shadow:0 2px 16px rgba(15,33,64,.3)}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:34px;height:34px;background:var(--or);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
+.htt{color:#fff;font-size:16px;font-weight:700;line-height:1.2}
+.hst{color:rgba(255,255,255,.6);font-size:11px}
+.pill{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .18s;white-space:nowrap}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.bp{background:var(--gd);color:#fff;box-shadow:0 2px 12px rgba(26,54,96,.22)}
+.bp:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 20px rgba(26,54,96,.32)}
+.bo{background:linear-gradient(135deg,var(--or),var(--orlt));color:#fff;box-shadow:0 2px 12px rgba(245,130,31,.28)}
+.bo:hover:not(:disabled){transform:translateY(-1px)}
+.bg{background:transparent;color:var(--nv);border:1.5px solid var(--bd)}
+.bg:hover:not(:disabled){background:var(--sf2);border-color:var(--bllt)}
+.bd_{background:var(--er);color:#fff}
+.bsm{padding:7px 13px;font-size:13px;border-radius:8px}
+.blg{padding:14px 28px;font-size:16px}
+.bfw{width:100%}
+.card{background:var(--sf);border-radius:var(--rl);box-shadow:0 2px 12px rgba(26,54,96,.10);border:1px solid var(--bd);overflow:hidden}
+.chdr{padding:18px 22px 14px;border-bottom:1px solid var(--bd)}
+.cbdy{padding:22px}
+.inp{width:100%;padding:11px 15px;border:1.5px solid var(--bd);border-radius:var(--r);font-family:'Inter',sans-serif;font-size:14px;color:var(--tx);background:var(--sf);transition:border-color .18s;outline:none}
+.inp:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(30,110,200,.10)}
+.inp::placeholder{color:var(--mu)}
+textarea.inp{resize:vertical;min-height:58px}
+.lbl{display:block;font-size:12px;font-weight:700;color:var(--txs);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--bl);box-shadow:0 2px 8px rgba(26,54,96,.22);cursor:pointer;transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--bl);cursor:pointer}
+.pbar{height:8px;border-radius:4px;background:var(--bd);overflow:hidden}
+.pfill{height:100%;border-radius:4px;transition:width .5s}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;text-align:left;font-size:13px;border-bottom:1px solid var(--bd)}
+th{font-weight:700;color:var(--txs);background:var(--sf2);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.dp{color:var(--ok);font-weight:700}.dn{color:var(--er);font-weight:700}.dz{color:var(--mu)}
+.sbox{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:16px;text-align:center}
+.sv{font-size:28px;font-weight:800;color:var(--nv)}
+.sl{font-size:11px;color:var(--mu);font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.04em}
+input[type=color]{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px}
+.cpb{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:rgba(30,110,200,.08);color:var(--bl);font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid rgba(30,110,200,.20);transition:all .18s;font-family:'Inter',sans-serif}
+.cpb:hover{background:rgba(30,110,200,.15)}
+.cpb.ok{background:rgba(16,185,129,.10);color:var(--ok);border-color:rgba(16,185,129,.25)}
+.acard{display:flex;align-items:center;gap:16px;padding:16px 18px;background:var(--sf);border-radius:var(--r);border:1.5px solid var(--bd);transition:all .18s}
+.acard:hover{border-color:var(--bllt);box-shadow:0 4px 24px rgba(26,54,96,.14);transform:translateY(-2px)}
+.asc{background:var(--sf);border-radius:var(--r);border:1.5px solid var(--bd);padding:15px 18px;transition:border-color .18s,box-shadow .18s}
+.asc:focus-within{border-color:var(--bllt);box-shadow:0 2px 12px rgba(30,110,200,.10)}
+.sbg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--gd)}
+.sc{background:#fff;border-radius:24px;padding:40px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(15,33,64,.38)}
+.ahero{background:var(--gd);padding:28px 24px;text-align:center;color:#fff}
+.ahero h1{font-size:26px;font-weight:800;margin-bottom:6px}
+.ahero p{font-size:14px;opacity:.8}
+.tybg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--gd)}
+.tyc{background:#fff;border-radius:24px;padding:44px 38px;max-width:520px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(15,33,64,.35)}
+.chk{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--ok),#34d399);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:32px;color:#fff}
+.acols{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.wstk{position:sticky;top:72px}
+.dcols{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start}
+.emp{text-align:center;padding:60px 24px;color:var(--mu)}
+.ei{font-size:48px;margin-bottom:12px;opacity:.45}
+.et{font-size:18px;font-weight:700;color:var(--txs);margin-bottom:8px}
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:0 8px 40px rgba(26,54,96,.18);z-index:999;animation:fi .3s ease}
+.tok{background:var(--ok);color:#fff}.ter{background:var(--er);color:#fff}.tin{background:var(--nv);color:#fff}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.fin{animation:fi .3s ease}.sp{animation:pu 1.4s ease infinite}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+@media(max-width:900px){.acols{grid-template-columns:1fr}.wstk{position:static}}
+@media(max-width:800px){.dcols{grid-template-columns:1fr}}
+@media(max-width:768px){.wrap{padding:0 12px}.g3{grid-template-columns:1fr 1fr}.cbdy{padding:16px}.hdr{padding:0 16px}}
+@media(max-width:480px){.g3{grid-template-columns:1fr}}
+</style>
+</head>
+<body><div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useMemo} = React;
+const LS='smartia_wl3';
+
+const DEFA=[
+  {id:'salud',   name:'Salud',        color:'#ef4444'},
+  {id:'familia', name:'Familia',      color:'#f97316'},
+  {id:'pareja',  name:'Pareja',       color:'#ec4899'},
+  {id:'trabajo', name:'Trabajo',      color:'#3b82f6'},
+  {id:'finanzas',name:'Finanzas',     color:'#10b981'},
+  {id:'despers', name:'Des.Personal', color:'#8b5cf6'},
+  {id:'amigos',  name:'Amigos',       color:'#f59e0b'},
+  {id:'ocio',    name:'Ocio',         color:'#06b6d4'},
+];
+
+/* Firebase */
+async function fbRead(db){
+  const r=await fetch(db+'/wl.json');
+  if(!r.ok) throw new Error(r.status);
+  const d=await r.json();
+  if(!d) return {areas:[...DEFA],submissions:[]};
+  return{areas:d.areas?Object.values(d.areas):[...DEFA],submissions:d.submissions?Object.values(d.submissions):[]};
+}
+async function fbAreas(db,areas){
+  const o={};areas.forEach(a=>{o[a.id]=a;});
+  const r=await fetch(db+'/wl/areas.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)});
+  if(!r.ok) throw new Error(r.status);
+}
+async function fbSub(db,sub){
+  const r=await fetch(db+'/wl/submissions/'+sub.id+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(sub)});
+  if(!r.ok) throw new Error(r.status);
+}
+async function fbDelete(db,id){
+  const r=await fetch(db+'/wl/submissions/'+id+'.json',{method:'DELETE'});
+  if(!r.ok) throw new Error(r.status);
+}
+
+/* Utils */
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const fmt=iso=>new Date(iso).toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+function avg(sc,ar){
+  if(!ar||!ar.length) return '0.0';
+  return(ar.map(a=>Number(sc[a.id])||0).reduce((a,b)=>a+b,0)/ar.length).toFixed(1);
+}
+function parseHash(){
+  const h=window.location.hash;
+  if(h.startsWith('#advisor')){
+    const q=h.includes('?')?h.split('?')[1]:'';
+    return{mode:'advisor',db:new URLSearchParams(q).get('db')};
+  }
+  return{mode:'coach',db:null};
+}
+
+/* Toast */
+function Toast({msg,type,done}){
+  useEffect(()=>{const t=setTimeout(done,2600);return()=>clearTimeout(t);},[]);
+  return <div className={'toast '+(type==='ok'?'tok':type==='er'?'ter':'tin')}>{msg}</div>;
+}
+function useToast(){
+  const [t,set]=useState(null);
+  const show=(msg,type)=>set({msg,type,k:Date.now()});
+  return[t?<Toast key={t.k} msg={t.msg} type={t.type} done={()=>set(null)}/>:null, show];
+}
+
+/* Wheel */
+function Wheel({areas,scores,size=380,labels=true}){
+  const VB=500,cx=250,cy=250,mr=175,lr=228;
+  const n=areas.length; if(!n) return null;
+  const sl=(2*Math.PI)/n,S=-Math.PI/2;
+  const pt=(r,a)=>[cx+r*Math.cos(a),cy+r*Math.sin(a)];
+
+  const segs=areas.map((a,i)=>{
+    const sc=Number(scores[a.id])||0; if(!sc) return null;
+    const r=(sc/10)*mr,a0=S+i*sl,a1=S+(i+1)*sl;
+    const [x0,y0]=pt(r,a0),[x1,y1]=pt(r,a1);
+    return <path key={a.id} d={`M${cx},${cy} L${x0.toFixed(1)},${y0.toFixed(1)} A${r.toFixed(1)},${r.toFixed(1)} 0 ${a1-a0>Math.PI?1:0} 1 ${x1.toFixed(1)},${y1.toFixed(1)} Z`} fill={a.color} opacity={.88}/>;
+  });
+
+  const rings=[1,2,3,4,5,6,7,8,9,10].map(v=>(
+    <circle key={v} cx={cx} cy={cy} r={(v/10)*mr} fill="none" stroke="white" strokeWidth={v%2?'.5':'1'} strokeOpacity={v%2?'.3':'.65'}/>
+  ));
+
+  const divs=areas.map((_,i)=>{
+    const [x,y]=pt(mr,S+i*sl);
+    return <line key={i} x1={cx} y1={cy} x2={x.toFixed(1)} y2={y.toFixed(1)} stroke="white" strokeWidth="1.5"/>;
+  });
+
+  const sn=labels?[2,4,6,8,10].map(v=>{
+    const [nx,ny]=pt((v/10)*mr,S-.08);
+    return <text key={v} x={nx.toFixed(1)} y={(ny+3).toFixed(1)} textAnchor="middle" fontSize="9" fill="rgba(100,116,139,.75)" fontFamily="Inter,sans-serif">{v}</text>;
+  }):null;
+
+  const lb=labels?areas.map((a,i)=>{
+    const mid=S+(i+.5)*sl,[lx,ly]=pt(lr,mid);
+    const sc=Number(scores[a.id])||0;
+    const w=a.name.split(' '),h=Math.ceil(w.length/2);
+    const l1=w.slice(0,h).join(' '),l2=w.length>1?w.slice(h).join(' '):null;
+    return <g key={a.id}>
+      {l2?<>
+        <text x={lx.toFixed(1)} y={(ly-10).toFixed(1)} textAnchor="middle" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="600" fill={a.color}>{l1}</text>
+        <text x={lx.toFixed(1)} y={(ly+3).toFixed(1)} textAnchor="middle" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="600" fill={a.color}>{l2}</text>
+        {sc>0&&<text x={lx.toFixed(1)} y={(ly+18).toFixed(1)} textAnchor="middle" fontSize="13" fontFamily="Inter,sans-serif" fontWeight="800" fill={a.color}>{sc}</text>}
+      </>:<>
+        <text x={lx.toFixed(1)} y={(ly-2).toFixed(1)} textAnchor="middle" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="600" fill={a.color}>{a.name}</text>
+        {sc>0&&<text x={lx.toFixed(1)} y={(ly+14).toFixed(1)} textAnchor="middle" fontSize="13" fontFamily="Inter,sans-serif" fontWeight="800" fill={a.color}>{sc}</text>}
+      </>}
+    </g>;
+  }):null;
+
+  return <svg width={size} height={size} viewBox={`0 0 ${VB} ${VB}`} style={{display:'block'}}>
+    <circle cx={cx} cy={cy} r={mr} fill="rgba(241,245,249,.5)"/>
+    {rings}{segs}{divs}
+    <circle cx={cx} cy={cy} r={mr} fill="none" stroke="rgba(26,54,96,.15)" strokeWidth="1.5"/>
+    {sn}{lb}
+    <circle cx={cx} cy={cy} r="5" fill="rgba(26,54,96,.25)"/>
+  </svg>;
+}
+
+/* Setup */
+function Setup({onSetup}){
+  const [url,set]=useState('');
+  const [busy,setBusy]=useState(false);
+  const [err,setErr]=useState('');
+  const go=async()=>{
+    const u=url.trim().replace(/\/$/,'');
+    if(!u) return setErr('Pega la URL de Firebase Realtime Database');
+    setBusy(true);setErr('');
+    try{
+      const d=await fbRead(u);
+      if(!d.areas||!d.areas.length) await fbAreas(u,DEFA);
+      localStorage.setItem(LS,u);onSetup(u);
+    }catch{setErr('No se pudo conectar. Verifica URL y reglas de Firebase (read/write: true).');}
+    finally{setBusy(false);}
+  };
+  return <div className="sbg">
+    <div className="sc fin">
+      <div style={{textAlign:'center',marginBottom:24}}>
+        <div style={{fontSize:52,marginBottom:10}}>🎯</div>
+        <h1 style={{fontSize:24,fontWeight:800,color:'var(--nv)',marginBottom:6}}>Rueda de la Vida</h1>
+        <p style={{fontSize:14,color:'var(--mu)'}}>Coaching Ontológico · Smart Insurance Agency</p>
+      </div>
+      <label className="lbl">URL de Firebase Realtime Database</label>
+      <input className="inp" type="url" placeholder="https://mi-proyecto-default-rtdb.firebaseio.com"
+        value={url} onChange={e=>{set(e.target.value);setErr('');}} onKeyDown={e=>e.key==='Enter'&&go()}/>
+      {err&&<p style={{color:'var(--er)',fontSize:13,marginTop:6}}>{err}</p>}
+      <button className="btn bp bfw blg" style={{marginTop:14}} onClick={go} disabled={busy}>
+        {busy?'⏳ Conectando...':'🔗 Conectar y Comenzar'}
+      </button>
+      <div style={{marginTop:20,padding:14,background:'var(--sf2)',borderRadius:10,border:'1px solid var(--bd)'}}>
+        <p style={{fontSize:12,color:'var(--mu)',lineHeight:1.7}}>
+          <strong style={{color:'var(--txs)'}}>Configurar Firebase:</strong><br/>
+          1. <a href="https://console.firebase.google.com" target="_blank" style={{color:'var(--bl)'}}>console.firebase.google.com</a> → Crear proyecto → Realtime Database<br/>
+          2. Reglas: <code style={{background:'#e2e8f0',padding:'1px 4px',borderRadius:3}}>{'"rules":{".read":true,".write":true}'}</code><br/>
+          3. Copiar la URL del panel
+        </p>
+      </div>
+    </div>
+  </div>;
+}
+
+/* Advisor */
+function Advisor({dbUrl}){
+  const [st,setSt]=useState('load');
+  const [areas,setAreas]=useState(DEFA);
+  const [name,setName]=useState('');
+  const [sc,setSc]=useState({});
+  const [rf,setRf]=useState({});
+  const [busy,setBusy]=useState(false);
+
+  useEffect(()=>{
+    fbRead(dbUrl)
+      .then(d=>{
+        const a=d.areas&&d.areas.length?d.areas:DEFA;
+        setAreas(a);
+        const s={};a.forEach(x=>{s[x.id]=5;});setSc(s);
+        setSt('name');
+      })
+      .catch(()=>setSt('err'));
+  },[dbUrl]);
+
+  const submit=async()=>{
+    setBusy(true);
+    try{
+      await fbSub(dbUrl,{id:uid(),name:name.trim(),date:new Date().toISOString(),scores:{...sc},reflections:{...rf},areas:areas.map(a=>({id:a.id,name:a.name,color:a.color}))});
+      setSt('done');
+    }catch{alert('Error al enviar. Inténtalo de nuevo.');}
+    finally{setBusy(false);}
+  };
+
+  if(st==='load') return <div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',background:'var(--gd)'}}>
+    <div style={{textAlign:'center',color:'#fff'}}><div style={{fontSize:48,marginBottom:14}} className="sp">🎯</div><p style={{opacity:.8}}>Cargando evaluación...</p></div>
+  </div>;
+
+  if(st==='err') return <div className="tybg">
+    <div className="tyc fin"><div style={{fontSize:48,marginBottom:14}}>⚠️</div>
+    <h2 style={{color:'var(--er)',marginBottom:10}}>Enlace inválido</h2>
+    <p style={{color:'var(--mu)',fontSize:14}}>Solicita un nuevo enlace a tu coach.</p></div>
+  </div>;
+
+  if(st==='done') return <div className="tybg">
+    <div className="tyc fin">
+      <div className="chk">✓</div>
+      <h1 style={{fontSize:24,fontWeight:800,color:'var(--nv)',marginBottom:10}}>¡Gracias, {name}!</h1>
+      <p style={{color:'var(--mu)',fontSize:14,lineHeight:1.7,marginBottom:22}}>Tu Rueda fue registrada exitosamente.<br/>Tu coach revisará tus resultados pronto.</p>
+      <Wheel areas={areas} scores={sc} size={260}/>
+      <p style={{marginTop:18,fontSize:13,color:'var(--mu)'}}>Promedio: <strong style={{fontSize:17,color:'var(--nv)'}}>{avg(sc,areas)}/10</strong></p>
+      <p style={{marginTop:18,fontSize:12,color:'var(--mu)'}}>Smart Insurance Agency · Coaching Ontológico</p>
+    </div>
+  </div>;
+
+  if(st==='name') return <div className="tybg">
+    <div className="tyc fin" style={{textAlign:'left'}}>
+      <div style={{textAlign:'center',marginBottom:24}}>
+        <div style={{fontSize:48,marginBottom:10}}>🎯</div>
+        <h1 style={{fontSize:22,fontWeight:800,color:'var(--nv)',marginBottom:8}}>Rueda de la Vida</h1>
+        <p style={{fontSize:14,color:'var(--mu)',lineHeight:1.6}}>Evalúa cómo está equilibrada tu vida en las áreas más importantes.</p>
+      </div>
+      <label className="lbl">Tu nombre completo *</label>
+      <input className="inp" type="text" placeholder="Ej: María García" value={name}
+        onChange={e=>setName(e.target.value)} onKeyDown={e=>e.key==='Enter'&&name.trim()&&setSt('eval')} autoFocus/>
+      <button className="btn bp bfw blg" style={{marginTop:14}} onClick={()=>setSt('eval')} disabled={!name.trim()}>
+        Comenzar mi evaluación →
+      </button>
+      <p style={{marginTop:12,fontSize:12,color:'var(--mu)',textAlign:'center'}}>Tus respuestas son confidenciales y solo las verá tu coach.</p>
+    </div>
+  </div>;
+
+  return <div>
+    <div className="ahero">
+      <h1>Hola, {name} 👋</h1>
+      <p>Califica cada área del 1 al 10 según cómo te sientes hoy</p>
+      <div style={{marginTop:10}}><span className="pill" style={{fontSize:14,padding:'6px 18px'}}>Promedio: {avg(sc,areas)}/10</span></div>
+    </div>
+    <div className="wrap" style={{paddingTop:24,paddingBottom:48}}>
+      <div className="acols">
+        <div style={{display:'flex',flexDirection:'column',gap:10}}>
+          {areas.map(a=>{
+            const v=sc[a.id]||5,pct=(((v-1)/9)*100).toFixed(1);
+            return <div className="asc" key={a.id}>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:8}}>
+                <div style={{display:'flex',alignItems:'center',gap:7}}>
+                  <div style={{width:10,height:10,borderRadius:'50%',background:a.color,flexShrink:0}}/>
+                  <span style={{fontWeight:600,fontSize:14}}>{a.name}</span>
+                </div>
+                <div style={{width:30,height:30,borderRadius:8,background:a.color,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:14,color:'#fff'}}>{v}</div>
+              </div>
+              <input type="range" min={1} max={10} step={1} value={v}
+                style={{background:`linear-gradient(to right,${a.color} 0%,${a.color} ${pct}%,#e2e8f0 ${pct}%,#e2e8f0 100%)`}}
+                onChange={e=>setSc(s=>({...s,[a.id]:+e.target.value}))}/>
+              <div style={{display:'flex',justifyContent:'space-between',fontSize:10,color:'var(--mu)',marginTop:2}}>
+                <span>1 – Muy bajo</span><span>10 – Excelente</span>
+              </div>
+              <textarea className="inp" style={{marginTop:8,fontSize:13,minHeight:50}}
+                placeholder={`Reflexión sobre ${a.name} (opcional)...`}
+                value={rf[a.id]||''} onChange={e=>setRf(r=>({...r,[a.id]:e.target.value}))}/>
+            </div>;
+          })}
+          <button className="btn bo bfw blg" style={{marginTop:6}} onClick={submit} disabled={busy}>
+            {busy?'⏳ Enviando...':'✅ Enviar mi Rueda de la Vida'}
+          </button>
+        </div>
+        <div className="wstk">
+          <div className="card">
+            <div style={{padding:18,textAlign:'center'}}>
+              <p style={{fontSize:12,fontWeight:700,color:'var(--mu)',marginBottom:10,textTransform:'uppercase',letterSpacing:'.04em'}}>Tu Rueda en Tiempo Real</p>
+              <Wheel areas={areas} scores={sc} size={310}/>
+              <div style={{display:'flex',flexWrap:'wrap',gap:6,justifyContent:'center',marginTop:12}}>
+                {areas.map(a=><div key={a.id} style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}>
+                  <div style={{width:7,height:7,borderRadius:'50%',background:a.color}}/><span style={{color:'var(--mu)'}}>{a.name}</span>
+                </div>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
+/* Detail */
+function Detail({sub,onBack,onDelete}){
+  const ar=sub.areas&&sub.areas.length?sub.areas:DEFA;
+  const a=avg(sub.scores,ar);
+  const print=()=>{
+    const svgEl=document.getElementById('dwhl');
+    const w=window.open('','_blank');
+    w.document.write(`<!DOCTYPE html><html><head><title>Rueda – ${sub.name}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>body{font-family:Inter,sans-serif;padding:32px;color:#1e293b;max-width:700px;margin:0 auto}h1{font-size:22px;font-weight:800;color:#1a3660}.whl{text-align:center;margin:20px 0}svg{max-width:280px}.row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #e2e8f0}.dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:2px}.bar{height:8px;border-radius:4px;background:#e2e8f0;flex:1}.fill{height:100%;border-radius:4px}.sc{font-weight:800;min-width:20px;text-align:right}.ref{font-size:13px;color:#64748b;font-style:italic;margin-top:4px}</style></head><body>
+    <h1>Rueda de la Vida · ${sub.name}</h1><p style="color:#94a3b8;margin-bottom:20px">${fmt(sub.date)} · Promedio: ${a}/10</p>
+    <div class="whl">${svgEl?svgEl.innerHTML:''}</div>
+    ${ar.map(x=>`<div class="row"><div class="dot" style="background:${x.color}"></div><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-weight:600;min-width:120px">${x.name}</span><div class="bar"><div class="fill" style="width:${(sub.scores[x.id]||0)*10}%;background:${x.color}"></div></div><span class="sc" style="color:${x.color}">${sub.scores[x.id]||0}</span></div>${sub.reflections&&sub.reflections[x.id]?`<div class="ref">"${sub.reflections[x.id]}"</div>`:''}</div></div>`).join('')}
+    </body></html>`);
+    w.document.close();setTimeout(()=>w.print(),400);
+  };
+  return <div className="fin">
+    <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:22}}>
+      <button className="btn bg bsm" onClick={onBack}>← Volver</button>
+      <div style={{flex:1}}>
+        <h2 style={{fontSize:20,fontWeight:800,color:'var(--nv)'}}>{sub.name}</h2>
+        <p style={{fontSize:13,color:'var(--mu)'}}>{fmt(sub.date)} · Promedio: <strong style={{color:'var(--nv)'}}>{a}/10</strong></p>
+      </div>
+      <button className="btn bg bsm" onClick={print}>📄 PDF</button>
+      <button className="btn bd_ bsm" onClick={()=>{if(window.confirm('¿Eliminar la evaluación de '+sub.name+' del '+fmt(sub.date)+'?\n\nEsta acción no se puede deshacer.'))onDelete(sub.id);}}>🗑 Eliminar</button>
+    </div>
+    <div className="dcols">
+      <div id="dwhl" className="card" style={{padding:18,textAlign:'center'}}><Wheel areas={ar} scores={sub.scores} size={290}/></div>
+      <div className="card">
+        <div className="chdr"><h3 style={{fontWeight:700,color:'var(--nv)'}}>Scores por Área</h3></div>
+        <div style={{padding:'0 20px 8px'}}>
+          {ar.map(x=><div key={x.id} style={{padding:'12px 0',borderBottom:'1px solid var(--bd)'}}>
+            <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:sub.reflections&&sub.reflections[x.id]?6:0}}>
+              <div style={{width:10,height:10,borderRadius:'50%',background:x.color,flexShrink:0}}/>
+              <span style={{fontWeight:600,fontSize:14,minWidth:110}}>{x.name}</span>
+              <div className="pbar" style={{flex:1}}><div className="pfill" style={{width:`${(sub.scores[x.id]||0)*10}%`,background:x.color}}/></div>
+              <span style={{fontWeight:700,fontSize:15,color:x.color,minWidth:20,textAlign:'right'}}>{sub.scores[x.id]||0}</span>
+            </div>
+            {sub.reflections&&sub.reflections[x.id]&&<p style={{fontSize:13,color:'var(--mu)',fontStyle:'italic',paddingLeft:20,lineHeight:1.5}}>"{sub.reflections[x.id]}"</p>}
+          </div>)}
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
+/* Compare */
+function Compare({subs,onBack}){
+  if(subs.length<2) return <div className="fin">
+    <button className="btn bg bsm" onClick={onBack} style={{marginBottom:18}}>← Volver</button>
+    <div className="emp"><div className="ei">📊</div><div className="et">Necesitas al menos 2 evaluaciones para comparar</div></div>
+  </div>;
+  const sorted=[...subs].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const ar=sorted[0].areas&&sorted[0].areas.length?sorted[0].areas:DEFA;
+
+  const print=()=>{
+    const w=window.open('','_blank');
+    w.document.write(`<!DOCTYPE html><html><head><title>Evolución – ${sorted[0].name}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>body{font-family:Inter,sans-serif;padding:32px;color:#1e293b}h1{font-size:22px;font-weight:800;color:#1a3660}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{padding:10px 12px;text-align:left;font-size:13px;border-bottom:1px solid #e2e8f0}th{background:#f1f5f9;font-weight:700;font-size:11px;text-transform:uppercase}.p{color:#10b981;font-weight:700}.n{color:#ef4444;font-weight:700}</style></head><body>
+    <h1>Evolución de la Rueda de la Vida</h1>
+    <p style="color:#94a3b8;margin-bottom:16px">${sorted[0].name} · ${sorted.length} evaluaciones</p>
+    <table><tr><th>Área</th>${sorted.map(s=>`<th>${new Date(s.date).toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'2-digit'})}</th>`).join('')}<th>Δ Total</th></tr>
+    ${ar.map(x=>{const vs=sorted.map(s=>Number(s.scores[x.id])||0);const td=vs[vs.length-1]-vs[0];return`<tr><td style="font-weight:600">${x.name}</td>${vs.map((v,i)=>{const p=i>0?v-vs[i-1]:null;const d=p!==null?(p>0?`<span class="p">+${p}</span>`:p<0?`<span class="n">${p}</span>`:'—'):'';return`<td>${v} ${d}</td>`;}).join('')}<td class="${td>0?'p':td<0?'n':''}">${td>0?'+'+td:td||'='}</td></tr>`;}).join('')}
+    <tr style="background:#f8fafc"><td style="font-weight:700">Promedio</td>${sorted.map(s=>`<td style="font-weight:700">${avg(s.scores,s.areas||DEFA)}</td>`).join('')}<td></td></tr>
+    </table></body></html>`);
+    w.document.close();setTimeout(()=>w.print(),400);
+  };
+
+  return <div className="fin">
+    <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:22}}>
+      <button className="btn bg bsm" onClick={onBack}>← Volver</button>
+      <div style={{flex:1}}>
+        <h2 style={{fontSize:20,fontWeight:800,color:'var(--nv)'}}>Evolución: {sorted[0].name}</h2>
+        <p style={{fontSize:13,color:'var(--mu)'}}>{sorted.length} evaluaciones registradas</p>
+      </div>
+      <button className="btn bg bsm" onClick={print}>📄 PDF Evolución</button>
+    </div>
+    <div style={{display:'flex',gap:14,overflowX:'auto',paddingBottom:8,marginBottom:20}}>
+      {sorted.map(s=><div key={s.id} className="card" style={{padding:14,textAlign:'center',minWidth:120,flexShrink:0}}>
+        <Wheel areas={s.areas||DEFA} scores={s.scores} size={96} labels={false}/>
+        <p style={{fontSize:11,color:'var(--mu)',marginTop:6}}>{new Date(s.date).toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'2-digit'})}</p>
+        <p style={{fontSize:18,fontWeight:800,color:'var(--nv)'}}>{avg(s.scores,s.areas||DEFA)}</p>
+      </div>)}
+    </div>
+    <div className="card">
+      <div className="chdr"><h3 style={{fontWeight:700,color:'var(--nv)'}}>Evolución por Área</h3></div>
+      <div style={{overflowX:'auto'}}>
+        <table>
+          <thead><tr>
+            <th>Área</th>
+            {sorted.map((s,i)=><th key={s.id}>{new Date(s.date).toLocaleDateString('es-PE',{day:'2-digit',month:'short'})}{i===sorted.length-1&&<span style={{color:'var(--bl)',marginLeft:3}}>●</span>}</th>)}
+            <th>Δ Total</th>
+          </tr></thead>
+          <tbody>
+            {ar.map(x=>{
+              const vs=sorted.map(s=>Number(s.scores[x.id])||0);
+              const td=vs[vs.length-1]-vs[0];
+              return <tr key={x.id}>
+                <td><div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:9,height:9,borderRadius:'50%',background:x.color,flexShrink:0}}/>{x.name}</div></td>
+                {vs.map((v,i)=>{
+                  const p=i>0?v-vs[i-1]:null;
+                  return <td key={i}><span style={{fontWeight:600}}>{v}</span>
+                    {p!==null&&<span style={{marginLeft:4,fontSize:12}} className={p>0?'dp':p<0?'dn':'dz'}>{p>0?'+'+p:p<0?p:'—'}</span>}
+                  </td>;
+                })}
+                <td><span className={td>0?'dp':td<0?'dn':'dz'} style={{fontSize:14}}>{td>0?'+'+td:td<0?td:'='}</span></td>
+              </tr>;
+            })}
+            <tr style={{background:'var(--sf2)'}}>
+              <td style={{fontWeight:700}}>Promedio</td>
+              {sorted.map(s=><td key={s.id} style={{fontWeight:700,color:'var(--nv)'}}>{avg(s.scores,s.areas||DEFA)}</td>)}
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>;
+}
+
+/* Settings */
+function Settings({areas:init,dbUrl,onSave,onClose}){
+  const [areas,setAreas]=useState(init.map(a=>({...a})));
+  const [busy,setBusy]=useState(false);
+  const [nm,setNm]=useState('');
+  const [clr,setClr]=useState('#6366f1');
+  const save=async()=>{
+    setBusy(true);
+    try{await fbAreas(dbUrl,areas);onSave(areas);}
+    catch{alert('Error al guardar');}
+    finally{setBusy(false);}
+  };
+  const add=()=>{if(!nm.trim())return;setAreas(p=>[...p,{id:'a_'+uid(),name:nm.trim(),color:clr}]);setNm('');};
+  return <div className="fin">
+    <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:22}}>
+      <button className="btn bg bsm" onClick={onClose}>← Volver</button>
+      <div style={{flex:1}}>
+        <h2 style={{fontSize:20,fontWeight:800,color:'var(--nv)'}}>Configurar Áreas</h2>
+        <p style={{fontSize:13,color:'var(--mu)'}}>Personaliza las áreas de la Rueda</p>
+      </div>
+      <button className="btn bp bsm" onClick={save} disabled={busy}>{busy?'Guardando...':'💾 Guardar'}</button>
+    </div>
+    <div className="card" style={{marginBottom:16}}>
+      <div className="cbdy">
+        <h3 style={{fontWeight:700,marginBottom:14,color:'var(--nv)'}}>Áreas actuales ({areas.length})</h3>
+        {areas.map((a,i)=><div key={a.id} style={{display:'flex',alignItems:'center',gap:10,padding:'8px 0',borderBottom:'1px solid var(--bd)'}}>
+          <span style={{color:'var(--mu)',fontSize:13,width:18,textAlign:'center'}}>{i+1}</span>
+          <input className="inp" style={{flex:1,padding:'8px 12px'}} value={a.name} onChange={e=>setAreas(p=>p.map(x=>x.id===a.id?{...x,name:e.target.value}:x))}/>
+          <input type="color" value={a.color} onChange={e=>setAreas(p=>p.map(x=>x.id===a.id?{...x,color:e.target.value}:x))}/>
+          <button className="btn bd_ bsm" style={{padding:'7px 10px'}} onClick={()=>setAreas(p=>p.filter(x=>x.id!==a.id))}>✕</button>
+        </div>)}
+      </div>
+    </div>
+    <div className="card">
+      <div className="cbdy">
+        <h3 style={{fontWeight:700,marginBottom:14,color:'var(--nv)'}}>Agregar área</h3>
+        <div style={{display:'flex',gap:10,alignItems:'center'}}>
+          <input className="inp" placeholder="Nombre del área" value={nm} onChange={e=>setNm(e.target.value)} onKeyDown={e=>e.key==='Enter'&&add()} style={{flex:1}}/>
+          <input type="color" value={clr} onChange={e=>setClr(e.target.value)}/>
+          <button className="btn bp" onClick={add} disabled={!nm.trim()}>+ Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
+/* Dashboard */
+function Dashboard({dbUrl,onLogout}){
+  const [data,setData]=useState(null);
+  const [loading,setLoading]=useState(true);
+  const [view,setView]=useState('list');
+  const [selSub,setSelSub]=useState(null);
+  const [selAdv,setSelAdv]=useState(null);
+  const [search,setSearch]=useState('');
+  const [cp,setCp]=useState(false);
+  const [ref,setRef]=useState(false);
+  const [toastEl,showToast]=useToast();
+
+  const lnk=window.location.origin+window.location.pathname+'#advisor?db='+encodeURIComponent(dbUrl);
+
+  const load=async()=>{
+    try{const d=await fbRead(dbUrl);setData({areas:d.areas&&d.areas.length?d.areas:DEFA,submissions:d.submissions||[]});}
+    catch{showToast('Error al cargar datos','er');}
+  };
+
+  useEffect(()=>{load().finally(()=>setLoading(false));},[]);
+
+  const refresh=async()=>{setRef(true);await load();setRef(false);showToast('Actualizado ✓','ok');};
+  const copy=()=>{navigator.clipboard.writeText(lnk).then(()=>{setCp(true);showToast('Link copiado ✓','ok');setTimeout(()=>setCp(false),2500);});};
+
+  const groups=useMemo(()=>{
+    if(!data)return[];
+    const g={};
+    data.submissions.forEach(s=>{const k=s.name.trim().toLowerCase();if(!g[k])g[k]={name:s.name,subs:[]};g[k].subs.push(s);});
+    return Object.values(g)
+      .map(x=>({...x,subs:x.subs.sort((a,b)=>new Date(b.date)-new Date(a.date)),latest:x.subs.reduce((a,b)=>new Date(a.date)>new Date(b.date)?a:b)}))
+      .filter(x=>!search||x.name.toLowerCase().includes(search.toLowerCase()))
+      .sort((a,b)=>new Date(b.latest.date)-new Date(a.latest.date));
+  },[data,search]);
+
+  const stats=useMemo(()=>{
+    if(!data)return{n:0,adv:0,av:'—'};
+    const s=data.submissions;
+    const av=s.map(x=>parseFloat(avg(x.scores,x.areas||data.areas)));
+    return{n:s.length,adv:new Set(s.map(x=>x.name.trim().toLowerCase())).size,av:s.length?(av.reduce((a,b)=>a+b,0)/av.length).toFixed(1):'—'};
+  },[data]);
+
+  if(loading) return <div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'60vh'}}>
+    <div style={{textAlign:'center'}}><div style={{fontSize:36,marginBottom:12}} className="sp">⏳</div><p style={{color:'var(--mu)'}}>Cargando dashboard...</p></div>
+  </div>;
+
+  const render=()=>{
+    if(view==='det'&&selSub) return <Detail sub={selSub} onBack={()=>{setView('list');setSelSub(null);}} onDelete={async(id)=>{try{await fbDelete(dbUrl,id);setData(d=>({...d,submissions:d.submissions.filter(s=>s.id!==id)}));setView('list');setSelSub(null);showToast('Evaluación eliminada ✓','ok');}catch{showToast('Error al eliminar','er');}}}/>;    if(view==='cmp'&&selAdv) return <Compare subs={selAdv.subs} onBack={()=>{setView('list');setSelAdv(null);}}/>;
+    if(view==='cfg') return <Settings areas={data.areas} dbUrl={dbUrl}
+      onSave={a=>{setData(d=>({...d,areas:a}));setView('list');showToast('Áreas guardadas ✓','ok');}}
+      onClose={()=>setView('list')}/>;
+
+    return <div className="fin">
+      <div className="g3" style={{marginBottom:20}}>
+        <div className="sbox"><div className="sv">{stats.adv}</div><div className="sl">Advisors</div></div>
+        <div className="sbox"><div className="sv" style={{color:'var(--bl)'}}>{stats.n}</div><div className="sl">Evaluaciones</div></div>
+        <div className="sbox"><div className="sv" style={{color:'var(--or)'}}>{stats.av}</div><div className="sl">Promedio Gral.</div></div>
+      </div>
+      <div className="card" style={{marginBottom:16}}>
+        <div style={{padding:'12px 16px',display:'flex',alignItems:'center',gap:10,flexWrap:'wrap'}}>
+          <span style={{fontSize:13,fontWeight:600,color:'var(--txs)',flexShrink:0}}>🔗 Link Advisors:</span>
+          <code style={{flex:1,fontSize:11,color:'var(--mu)',background:'var(--sf2)',padding:'5px 10px',borderRadius:8,border:'1px solid var(--bd)',wordBreak:'break-all'}}>{lnk}</code>
+          <button className={'cpb '+(cp?'ok':'')} onClick={copy}>{cp?'✓ Copiado':'📋 Copiar'}</button>
+        </div>
+      </div>
+      <div style={{display:'flex',gap:10,marginBottom:14,flexWrap:'wrap'}}>
+        <input className="inp" style={{flex:1,minWidth:180}} placeholder="🔍 Buscar advisor..."
+          value={search} onChange={e=>setSearch(e.target.value)}/>
+        <button className="btn bg bsm" onClick={refresh} disabled={ref}>{ref?'⏳':'🔄'} Actualizar</button>
+        <button className="btn bg bsm" onClick={()=>setView('cfg')}>⚙️ Áreas</button>
+      </div>
+      {groups.length===0?<div className="emp">
+        <div className="ei">📋</div>
+        <div className="et">{search?'Sin resultados':'Aún no hay evaluaciones'}</div>
+        <p style={{fontSize:14}}>{search?'Intenta con otro nombre':'Comparte el link con tus advisors'}</p>
+      </div>:
+      <div style={{display:'flex',flexDirection:'column',gap:10}}>
+        {groups.map(g=>{
+          const lt=g.latest,ar=lt.areas&&lt.areas.length?lt.areas:data.areas;
+          return <div key={g.name} className="acard">
+            <Wheel areas={ar} scores={lt.scores} size={78} labels={false}/>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:3}}>
+                <span style={{fontWeight:700,fontSize:15,color:'var(--nv)'}}>{g.name}</span>
+                {g.subs.length>1&&<span className="pill" style={{background:'rgba(30,110,200,.10)',color:'var(--bl)',padding:'2px 8px',fontSize:11}}>{g.subs.length} eval.</span>}
+              </div>
+              <p style={{fontSize:11,color:'var(--mu)',marginBottom:6}}>Última: {fmt(lt.date)}</p>
+              <div style={{display:'flex',gap:4,flexWrap:'wrap'}}>
+                {ar.slice(0,4).map(a=><span key={a.id} style={{fontSize:11,fontWeight:600,padding:'2px 7px',borderRadius:20,background:a.color+'18',color:a.color}}>{a.name}: {lt.scores[a.id]||0}</span>)}
+              </div>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',alignItems:'flex-end',gap:8,flexShrink:0}}>
+              <div style={{textAlign:'center'}}>
+                <div style={{fontSize:22,fontWeight:800,color:'var(--nv)'}}>{avg(lt.scores,ar)}</div>
+                <div style={{fontSize:10,color:'var(--mu)'}}>/ 10</div>
+              </div>
+              <div style={{display:'flex',gap:6}}>
+                <button className="btn bp bsm" onClick={()=>{setSelSub(lt);setView('det');}}>Ver Rueda</button>
+                {g.subs.length>1&&<button className="btn bg bsm" onClick={()=>{setSelAdv(g);setView('cmp');}}>📈 Evolución</button>}
+              </div>
+            </div>
+          </div>;
+        })}
+      </div>}
+      <div style={{marginTop:26,paddingTop:16,borderTop:'1px solid var(--bd)',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:10}}>
+        <code style={{fontSize:11,color:'var(--mu)',wordBreak:'break-all'}}>{dbUrl}</code>
+        <button className="btn bg bsm" style={{color:'var(--er)',borderColor:'rgba(239,68,68,.3)'}} onClick={onLogout}>Desconectar</button>
+      </div>
+    </div>;
+  };
+
+  return <>
+    {toastEl}
+    <div className="wrap" style={{paddingTop:26,paddingBottom:48}}>
+      {view==='list'&&<div style={{marginBottom:20}}>
+        <h1 style={{fontSize:22,fontWeight:800,color:'var(--nv)'}}>Dashboard del Coach</h1>
+        <p style={{fontSize:13,color:'var(--mu)'}}>Rueda de la Vida · Smart Insurance Agency</p>
+      </div>}
+      {render()}
+    </div>
+  </>;
+}
+
+/* App */
+function App(){
+  const {mode,db}=parseHash();
+  const [dbUrl,setDbUrl]=useState(()=>mode==='advisor'&&db?db:localStorage.getItem(LS)||'');
+  const [ready,setReady]=useState(!!localStorage.getItem(LS));
+
+  if(mode==='advisor'){
+    if(!db) return <div className="tybg"><div className="tyc fin">
+      <div style={{fontSize:48,marginBottom:14}}>⚠️</div>
+      <h2 style={{color:'var(--er)',marginBottom:10}}>Enlace inválido</h2>
+      <p style={{color:'var(--mu)',fontSize:14}}>Solicita un nuevo enlace a tu coach.</p>
+    </div></div>;
+    return <>
+      <header className="hdr"><div className="brand"><div className="logo">SI</div><div><div className="htt">Rueda de la Vida</div><div className="hst">Smart Insurance Agency</div></div></div><span className="pill">👤 Advisor</span></header>
+      <Advisor dbUrl={db}/>
+    </>;
+  }
+
+  if(!ready) return <Setup onSetup={u=>{setDbUrl(u);setReady(true);}}/>;
+
+  return <>
+    <header className="hdr"><div className="brand"><div className="logo">SI</div><div><div className="htt">Rueda de la Vida</div><div className="hst">Smart Insurance Agency</div></div></div><span className="pill">🎓 Coach</span></header>
+    <Dashboard dbUrl={dbUrl} onLogout={()=>{localStorage.removeItem(LS);setDbUrl('');setReady(false);}}/>
+  </>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
